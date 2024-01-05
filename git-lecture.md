@@ -1,18 +1,18 @@
 # 第三回課題提出
 * * * * 
 ### 1.アプリケーション起動
-![AP起動](.raisetech003/img/01.png)
+![AP起動](../raisetech003/img/01.png)
 ### 2.APサーバー名前とバージョン
 * AP. puma ver. 5.6.5
 * `kill`で停止
-![AP停止](.raisetech003/img/02.png)
+![AP停止](../raisetech003/img/02.png)
 * `rails s` で再起動
 
 * * * 
 ### 3.DBサーバー
 * DB mysql ver. 8.0.35
 * `sudo service mysqld stop` でDBサーバー停止
-![DB停止](.raisetech003/img/03.png)
+![DB停止](../raisetech003/img/03.png)
 * 
 * `sudo service mysqld start` の後に `rails s` でAPサーバー起動
 
