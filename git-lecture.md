@@ -1,19 +1,18 @@
 # 第三回課題提出
 * * * * 
 ### 1.アプリケーション起動
-![1](raisetech003/img/01.png)
-* * *
+![1](raisetech003/01.png)
 ### 2.APサーバー名前とバージョン
 * AP. puma ver. 5.6.5
 * `kill`で停止
-![2](raisetech003/img/02.png)
+![2](raisetech003/02.png)
 * `rails s` で再起動
 
 * * * 
 ### 3.DBサーバー
 * DB mysql ver. 8.0.35
 * `sudo service mysqld stop` でDBサーバー停止
-* ![3](raisetech003/img/03.png)
+* ![3](raisetech003/03.png)
 * 
 * `sudo service mysqld start` の後に `rails s` でAPサーバー起動
 
@@ -40,3 +39,6 @@
 * Ruby on Rails  フレームワーク 型枠
 * RDBMS　MySQL
 * sql    DB に対してデータの操作を行う為の「言語」
+### 感想
+* ここまでかなり時間がかかってしまいました、少しずつできるようにはなっていると実感しているがまだまだ勉強不足は否めない
+もっと復習していろいろなことを深掘りしていこうと思う
