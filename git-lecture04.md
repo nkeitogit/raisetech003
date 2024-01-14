@@ -2,7 +2,7 @@
 
 ### vpc接続
 * ![vpc](img/vpc.png)
-* ![vpc](img/resource.png)
+* ![vpc](img/resourcemap.png)
 
 
 * ルートテーブル  
