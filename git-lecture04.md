@@ -2,11 +2,10 @@
 
 ## vpc接続
 ![vpc](img/vpc2.png)
-* ![vpc](img/vpcmap.png)
+![vpc](img/vpcmap.png)
 
 
 
-* * *
 ## セキュリティーグループ
 
 ![security](img/ec2inb.png)
@@ -15,19 +14,19 @@
 
 
 ## EC2インスタンス
-----
 
  ![instance](img/instance2.png)
 
 ## RDS
 
-* DBsecuritygroupはEC2インスタンスと一緒でルールを追加しています。
+* DBsecuritygroupはEC2インスタンスのを使いまわしています。
 
-![dbinstance](img/DB.png)
-![db](img/DBsecuritygroup.png)
+　![db](img/db.png)
+　![db](img/DB.png)
 
 
 
 ## EC2とRDSの接続
-----
-![EC2-RDS](img/ssh.png)
+
+　![EC2RDS](img/ssh2.png)
+
