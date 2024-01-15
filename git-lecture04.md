@@ -19,7 +19,6 @@
 
 ## RDS
 
-* DBsecuritygroupはEC2インスタンスのを使いまわしています。
 
 　![db](img/dbin.png)
 　![db](img/dbse.png)
