@@ -1,35 +1,33 @@
-#　第四回課題提出
+# 第四回課題提出
 
-### vpc接続
-* ![vpc](img/vpc.png)
-* ![vpc](img/resourcemap.png)
+## vpc接続
+![vpc](img/vpc2.png)
+* ![vpc](img/vpcmap.png)
 
 
-* ルートテーブル  
-パブリックサブネット用に送信先を0.0.0.0/0
 
 * * *
-### セキュリティーグループ
+## セキュリティーグループ
 
-+ ![security](img/securitygroup.png)
+![security](img/ec2inb.png)
+![security](img/ec2outb.png)
 
 
 
-### EC2インスタンス
+## EC2インスタンス
 ----
-* 自動割り当てパブリックIPアドレスを有効
 
-* ![instance](img/instance1.png)
-* ![instance](img/instance.png)
+ ![instance](img/instance2.png)
 
-### RDS
----
-* ![dbinstance](img/dbinstance.png)
-* ![dbinstance](img/dbinstance1.png)
+## RDS
+
+* DBsecuritygroupはEC2インスタンスと一緒でルールを追加しています。
+
+![dbinstance](img/DB.png)
+![db](img/DBsecuritygroup.png)
 
 
 
-### EC2とRDSの接続
+## EC2とRDSの接続
 ----
-* ![EC2-RDS](img/ec2-rds-mysql.png)
-* ![teraterm](img/teraterm.png)
+![EC2-RDS](img/ssh.png)
