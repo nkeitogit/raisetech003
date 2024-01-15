@@ -8,7 +8,7 @@
 
 ## セキュリティーグループ
 
-![security](img/ec2inb.png)
+![security](img/ec2insta.png)
 ![security](img/ec2outb.png)
 
 
@@ -21,7 +21,7 @@
 
 
 　![db](img/dbin.png)
-　![db](img/dbse.png)
+　![db](img/dbsg.png)
 
 
 
