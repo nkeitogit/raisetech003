@@ -9,7 +9,6 @@
 ## セキュリティーグループ
 
 ![security](img/ec2insta.png)
-![security](img/ec2outb.png)
 
 
 
