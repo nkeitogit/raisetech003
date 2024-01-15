@@ -21,12 +21,12 @@
 
 * DBsecuritygroupはEC2インスタンスのを使いまわしています。
 
-　![db](img/db.png)
-　![db](img/DB.png)
+　![db](img/dbin.png)
+　![db](img/dbse.png)
 
 
 
 ## EC2とRDSの接続
 
-　![EC2RDS](img/ssh2.png)
+　![EC2RDS](img/ssh3.png)
 
