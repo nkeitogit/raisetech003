@@ -219,7 +219,11 @@ sudo nginx -s stop
 
 
 * nginx.configの編集
+
+
 ![nginx.config](img/nginx.config.png)
+
+* * *
     
 ## unicornとNginxの連携　デプロイ
 
@@ -234,10 +238,13 @@ sudo nginx -s stop
 
 ## ELB（ALB）の追加
 ![alb](img/ALBsyousai.png)
+* * *
 
 ![alb](img/ALBta-get.png)
+* * *
 
 ![alb](img/ALB.png)
+* * *
 
 ![alb](img/ALBdepu.png)
 
@@ -260,8 +267,11 @@ amazon:
 config.active_storage.serviceをamazonに変更
 
 ![s3](img/s3fullakuse.png)
+* * *
 ![s3](img/s3depu.png)
+* * *
 ![s3](img/s3gazoou.png)
+* * *
 
 
 ## 構成図
