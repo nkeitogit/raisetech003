@@ -122,20 +122,12 @@ sudo yum install --enablerepo=mysql80-community mysql-community-devel
 ```
 yum list installed | grep mysql
 ```
-- logファイルを作成
-```
-sudo touch /var/log/mysqld.log
-```
 - mysqldを起動,mysqldの状態を確認
 ```
 sudo systemctl start mysqld
 ```
 ```
 systemctl status mysqld.service
-```
-- mysqldがインスタンスの起動と同時に起動するように設定
-```
-sudo systemctl enable mysqld
 ```
 - mysqldの停止
 ```
@@ -162,59 +154,49 @@ default: &default
   password: RDSのパスワード
   host: RDSのエンドポイント
 ```
-- MySQLログインできるか確認を行う,exitで終了
-```
-mysql -u ユーザー名 -p -h RDSのエンドポイント
-```
 - setup
 ```
 bin/setup
 ```
-
-- EC2のセキュリティーグループに3000番ポートを追加
-- アプリケーションの起動
 ```
 bin/dev
 ```
-* 組み込みサーバーでのrailsアプリケーション動作確認
+- EC2のセキュリティーグループに3000番ポートを追加
+![dep](img/deploy1.png)
 
-![deploy1](img/deploy1.png)
-![deploy2](img/deploy2.png)
 * * *
 
-## Unicornを使ってのRailsアプリケーションの動作確認
-* unucornのインストール
+## Unicorn
+
+* unucorn起動コマンド
+
 ```
-bundle install
-※前にしてるので、必要なし
+bundle exec unicorn -c config/unicorn.rb -D -E development
+
 ```
-* lib/tasks ディレクトリに unicorn.rakeファイル作成
-```
-rails g task unicorn
-```
-* unicorn.rakeファイルの中のfile.readを編集
-```
-def unicorn_pid
-    begin
-      File.read("******************").to_i
-    rescue Errno::ENOENT
-      raise "Unicorn does not seem to be running"
-    end
-```
-* Unicorn起動,確認
-```
-rake unicorn:start
-```
+* 起動の確認
+
 ```
 ps -ef | grep unicorn | grep -v grep
+
 ```
-* unicorn停止
+
+* 停止コマンド
+
 ```
-rake unicorn:stop
+sudo kill -QUIT `cat /home/ec2-user/raisetech-live8-sample-app/tmp/pids/unicorn.pid`
+
 ```
-## Nginxの単体起動確認
+
+* unicorn.rbの編集
+ 
+![unicorn.rb](img/unicorn.rb.png)
+
+
+## nginxのインストール、動作確認
 
 * nginxのインストール
+
 ```
 sudo amazon-linux-extras install nginx1
 ```
@@ -226,9 +208,63 @@ sudo systemctl start nginx
 ```
 sudo systemctl status nginx
 ```
+* nginxの停止
+```
+sudo nginx -s stop
+```
+
 * nginx動作確認
 
 ![nginx](img/nginx.png)
 
 
-なぜかユニコーンだけが動かない　　　　
+* nginx.configの編集
+![nginx.config](img/nginx.config.png)
+    
+## unicornとNginxの連携　デプロイ
+
+`rails assets:precompile`
+
+![deploy](img/deploy.png)
+画像の表示と保存を確認
+
+
+
+
+
+## ELB（ALB）の追加
+![alb](img/ALBsyousai.png)
+
+![alb](img/ALBta-get.png)
+
+![alb](img/ALB.png)
+
+![alb](img/ALBdepu.png)
+
+* development.rbにconfig.hosts << "ALBのDNS名"追加
+* nginx.conf内のservernameにも追加
+
+
+## S3
+* /config/storage.ymlの編集
+
+```zsh
+amazon:
+ service: S3
+ access_key_id: アクセスキー
+ secret_access_key: シークレットキー
+ region: ap-northeast-1
+ bucket: バケット名
+ ```
+* development.rbを修正
+config.active_storage.serviceをamazonに変更
+
+![s3](img/s3fullakuse.png)
+![s3](img/s3depu.png)
+![s3](img/s3gazoou.png)
+
+
+## 構成図
+![AWS](img/AWS.drawio.png)
+
+
