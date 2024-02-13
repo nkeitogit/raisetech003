@@ -32,10 +32,13 @@
 
 ![topic](img/snstpic.png)
 
+actionの追加
+![action](img/action.png)
+
 
 * アラーム設定とOKaction設定（停止）
 
-![unhealthy](img/cloudwatchアラーム.png)
+![unhealthy](img/un.png)
 
 * アプリケーション停止状態（Unhealthy）
 
@@ -49,7 +52,7 @@
 
 * アラーム設定とOKaction設定（OK)
 
-![healthy](img/cloudwatchok.png)
+![healthy](img/ok.png)
 
 * アプリケーション起動状態(healthy)
 
@@ -80,9 +83,11 @@
 
 ## マネジメントコンソールから現在の利用料を確認
 
+![bill](img/1gatu2gatu.png)
+
 ![bill](img/1gatubilli.png)
 
-![bill](img/1gatu2gatu.png)
+![bill](img/1gatu.png)
 
 先月は無料枠を超えてしまった、主な要因としては違うリュージョンで使用していたして
 いたインスタンスのボリュームを変更してしまっていてそのままだったことと、EC2,RDSを
