@@ -221,7 +221,7 @@ sudo nginx -s stop
 * nginx.configの編集
 
 
-![nginx.config](img/nginx.config.png)
+![nginx.config](img5/nginx.config.png)
 
 * * *
     
@@ -229,7 +229,7 @@ sudo nginx -s stop
 
 `rails assets:precompile`
 
-![deploy](img/deploy.png)
+![deploy](img5/deploy.png)
 画像の表示と保存を確認
 
 
@@ -237,16 +237,16 @@ sudo nginx -s stop
 
 
 ## ELB（ALB）の追加
-![alb](img/ALBsyousai.png)
+![alb](img5/ALBsyousai.png)
 * * *
 
-![alb](img/ALBta-get.png)
+![alb](img5/ALBta-get.png)
 * * *
 
-![alb](img/ALB.png)
+![alb](img5/ALB.png)
 * * *
 
-![alb](img/ALBdepu.png)
+![alb](img5/ALBdepu.png)
 
 * development.rbにconfig.hosts << "ALBのDNS名"追加
 * nginx.conf内のservernameにも追加
