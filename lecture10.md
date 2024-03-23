@@ -20,7 +20,7 @@
 * <参考>　[AWS black belt](https://www.slideshare.net/AmazonWebServicesJapan/20200826-aws-black-belt-online-seminar-aws-cloudformation-238501102)
   
 * * *
-/raisetech/cloudfomation/app/EC2.yml
+
 ### Network Layer
 
 * [VPC](cloudfomation/net/NET.yml)
@@ -49,7 +49,7 @@
 
 ### スタックの証跡
 
-* スタック
+
 ![sutakku](img10/suttke.png)
 
 * * *
