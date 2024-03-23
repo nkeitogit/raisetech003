@@ -23,7 +23,7 @@
 /raisetech/cloudfomation/app/EC2.yml
 ### Network Layer
 
-* [VPC](/raisetech/cloudfomation/net/NET.yml)
+* [VPC](cloudfomation/net/NET.yml)
   
 * * *
 
@@ -31,18 +31,18 @@
 
 ### securitygroup Layer
 
-* [securitygroup](/raisetech/cloudfomation/security/securitygroupLayer.yml)
-* [IAM](/raisetech/cloudfomation/security/Iam.yml)
+* [securitygroup](cloudfomation/security/securitygroupLayer.yml)
+* [IAM](cloudfomation/security/Iam.yml)
 
 * * *
 
 
 ### application Layer
 
-* [ALB](/raisetech/cloudfomation/app/ALB.yml)
-* [EC2](/raisetech/cloudfomation/app/EC2.yml)
-* [RDS](/raisetech/cloudfomation/app/RDS.yml)
-* [S3](/raisetech/cloudfomation/app/S3.yml)
+* [ALB](cloudfomation/app/ALB.yml)
+* [EC2](cloudfomation/app/EC2.yml)
+* [RDS](cloudfomation/app/RDS.yml)
+* [S3](cloudfomation/app/S3.yml)
 
 
 * * * 
@@ -50,7 +50,7 @@
 ### スタックの証跡
 
 * スタック
-![sutakku](/raisetech/img10/suttke.png)
+![sutakku](img10/suttke.png)
 
 * * *
 ### やったこと
