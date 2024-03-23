@@ -1,0 +1,74 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: cloudformation-sg
+
+Parameters:
+  MyIP:
+    Type: String
+    Description: IP address allowed to access EC2
+Resources:
+  SgEC2:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: EC2SG
+      GroupDescription: SSH and HTTP
+      VpcId: !ImportValue VPCo
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !Ref MyIP
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: !Ref MyIP
+      Tags:
+        - Key: Name
+          Value:
+            SGec2
+
+            #RDSsecuritygroup
+
+  Rdssecuritygroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: RDS-SG
+      GroupDescription: RDS
+      VpcId: !ImportValue VPCo
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          Fromport: 3306
+          ToPort: 3306
+          SourceSecurityGroupId: !Ref SgEC2
+      Tags:
+        - key: Name
+          Value: RDS-sg
+
+          #ALBsecuritygroup
+  ALBSg:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: AlbSgCf
+      GroupDescription: ALB-sg
+      VpcId: !ImportValue VPCo
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          Fromport: 80
+          ToPort: 80
+          CidrIP: !Ref MyIP
+      Tags:
+        - Key: Name
+          Value: ALB-SG-CF
+
+Outputs:
+  SgEC2:
+    Value: !Ref SgEC2
+    Export:
+      Name: EC2SG
+  SgRDS:
+    Value: !Ref Rdssecuritygroup
+    Export:
+      Name: RDSSG
+  AlbSG:
+    Value: !Ref ALBSg
+    Export:
+      Name: ALBSgcf

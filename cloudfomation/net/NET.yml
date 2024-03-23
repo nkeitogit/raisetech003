@@ -1,0 +1,202 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: cloudformetion-network
+#vpc
+
+Resources:
+
+ vpc:
+   Type: AWS::EC2::VPC
+   Properties:
+     CidrBlock: 10.0.7.0/16
+     EnableDnsSupport: true
+     Tags:
+       - Key: Name
+         Value: KCFvpc
+
+           
+
+
+           #InternetGateway
+
+ IGW:
+   Type: AWS::EC2::InternetGateway
+   Properties:
+     Tags:
+      - Key: Name
+        Value: IGW-K
+ AttachGateway:
+   Type: AWS::EC2::VPCGatewayAttachment
+   Properties:
+     VpcId: !Ref vpc
+     InternetGatewayId: !Ref IGW
+
+
+
+
+           #subnet-zone-1a
+           #public-1a
+
+ Pub1a:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: "ap-northeast-1a"
+      VpcId: !Ref vpc
+      CidrBlock: 10.0.0.0/20
+      Tags:
+        - Key: Name
+          Value: Public1a
+
+
+
+
+           #private-1a
+
+ Pri1a:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: "ap-northeast-1a"
+      VpcId: !Ref vpc
+      CidrBlock: 10.0.128.0/20
+      Tags:
+        - Key: Name
+          Value: Private1a          
+
+
+
+
+           #subnet-zone-1c
+           #public-1c
+
+ Pub1c:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: "ap-northeast-1c"
+      VpcId: !Ref vpc
+      CidrBlock: 10.0.16.0/20
+      Tags:
+        - Key: Name
+          Value: Public1c
+
+
+
+
+            #private-1c
+
+ Pri1c:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: "ap-northeast-1c"
+      VpcId: !Ref vpc
+      CidrBlock: 10.0.144.0/20
+      Tags:
+        - Key: Name
+          Value: Prilic1c
+
+
+
+
+            #Routetable pub
+
+ PubRt:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref vpc
+      Tags:
+        - Key: Name
+          Value: Pub-Rt
+ Pubinnet:
+  Type: AWS::EC2::Route
+  Properties:
+    RouteTableId: !Ref PubRt
+    DestinationCidrBlock: 0.0.0.0/0
+    GatewayId: !Ref IGW
+
+
+
+
+             #Routetable pri
+
+ PriRT:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref vpc
+      Tags:
+        - Key: Name
+          Value: Pri-Rt
+
+
+
+
+               #Association pub
+
+ PubAssociation1a:
+  Type: AWS::EC2::SubnetRouteTableAssociation
+  Properties:
+    SubnetId: !Ref Pub1a
+    RouteTableId: !Ref PubRt
+ PubAssociation1c:
+  Type: AWS::EC2::SubnetRouteTableAssociation
+  Properties:
+    SubnetId: !Ref Pub1c
+    RouteTableId: !Ref PubRt
+
+
+
+
+               #Association private
+
+ PriAssociation1a:
+  Type: AWS::EC2::SubnetRouteTableAssociation
+  Properties:
+    SubnetId: !Ref Pri1a
+    RouteTableId: !Ref PriRT
+ PriAssociation1c:
+  Type: AWS::EC2::SubnetRouteTableAssociation
+  Properties:
+    SubnetId: !Ref Pri1c
+    RouteTableId: !Ref PriRT
+
+         
+
+
+                #RDSsubnet
+
+ RdssDBSubnetGroup:
+  Type: AWS::RDS::DBSubnetGroup
+  Properties:
+    DBSubnetGroupDescription: rds
+    SubnetIds:
+      - !Ref Pri1a
+      - !Ref Pri1c
+    Tags:
+      - Key: Name
+        Value: RDS-subnet
+
+          
+                #outputs他のスタックから参照
+
+Outputs:
+  subnet1:
+    Value: !Ref Pub1a
+    Export:
+      Name: pub1ao
+
+  subnet2:
+    Value: !Ref Pub1c
+    Export:
+      Name: pub1co
+
+  subnet3: 
+    Value: !Ref Pri1a
+    Export:
+      Name: pri1ao
+
+  subnet4:
+    Value: !Ref Pri1c
+    Export:
+      Name: pri1co
+
+  VPC:
+    Value: !Ref vpc
+    Export:
+      Name: VPCo
