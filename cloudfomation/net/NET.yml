@@ -1,42 +1,39 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: cloudformetion-network
-#vpc
+  Description: cloudformetion-net
+
 
 Resources:
+    
+    Vpc:
+     Type: AWS::EC2::VPC
+      Properties:
+      CidrBlock: 10.0.7.0/16
+      EnableDnsSupport: true
+      Tags:
+        - Key: Name
+          Value:
+            vpc-cf
 
- Vpc:
-   Type: AWS::EC2::VPC
-   Properties:
-     CidrBlock: 10.0.7.0/16
-     EnableDnsSupport: true
-     Tags:
-       - Key: Name
-         Value: vpc-cf
+            #InternetGateway
 
-           
+  IGw:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:AWSTemplateFormatVersion: 2010-09-09
 
+        - Key: Name
+          Value: igw-cf
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref Vpc
+      InternetGatewayId:
+        !Ref IGw
 
-           #InternetGateway
+        #subnet-zone-1a
+        #public-1a
 
- IGw:
-   Type: AWS::EC2::InternetGateway
-   Properties:
-     Tags:
-      - Key: Name
-        Value: igw-cf
- AttachGateway:
-   Type: AWS::EC2::VPCGatewayAttachment
-   Properties:
-     VpcId: !Ref Vpc
-     InternetGatewayId: !Ref IGw
-
-
-
-
-           #subnet-zone-1a
-           #public-1a
-
- SubnetPublic1a:
+  SubnetPublic1a:
     Type: AWS::EC2::Subnet
     Properties:
       AvailabilityZone: "ap-northeast-1a"
@@ -44,14 +41,12 @@ Resources:
       CidrBlock: 10.0.0.0/20
       Tags:
         - Key: Name
-          Value: public-cf-1a
+          Value:
+            public-cf-1a
 
+            #private-1a
 
-
-
-           #private-1a
-
- SubnetPrivate1a:
+  SubnetPrivate1a:
     Type: AWS::EC2::Subnet
     Properties:
       AvailabilityZone: "ap-northeast-1a"
@@ -59,15 +54,13 @@ Resources:
       CidrBlock: 10.0.128.0/20
       Tags:
         - Key: Name
-          Value: private-cf-1a         
+          Value:
+            private-cf-1a
 
+            #subnet-zone-1c
+            #public-1c
 
-
-
-           #subnet-zone-1c
-           #public-1c
-
- SubnetPublic1c:
+  SubnetPublic1c:
     Type: AWS::EC2::Subnet
     Properties:
       AvailabilityZone: "ap-northeast-1c"
@@ -75,14 +68,12 @@ Resources:
       CidrBlock: 10.0.16.0/20
       Tags:
         - Key: Name
-          Value: public-cf-1c
-
-
-
+          Value:
+            public-cf-1c
 
             #private-1c
 
-SubnetPrivate1c:
+  SubnetPrivate1c:
     Type: AWS::EC2::Subnet
     Properties:
       AvailabilityZone: "ap-northeast-1c"
@@ -90,115 +81,105 @@ SubnetPrivate1c:
       CidrBlock: 10.0.144.0/20
       Tags:
         - Key: Name
-          Value: Private-cd-1c
-
-
-
+          Value:
+            Private-cd-1c
 
             #Routetable pub
 
- PublicRt:
+  PublicRt:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId: !Ref vpc
       Tags:
         - Key: Name
           Value: public-cf-rt
- PubilicInNet:
-  Type: AWS::EC2::Route
-  Properties:
-    RouteTableId: !Ref PublicRt
-    DestinationCidrBlock: 0.0.0.0/0
-    GatewayId: !Ref IGw
+  PubilicInNet:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PublicRt
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId:
+        !Ref IGw
 
+        #Routetable pri
 
-
-
-             #Routetable pri
-
- PrivateRT:
+  PrivateRT:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId: !Ref Vpc
       Tags:
         - Key: Name
-          Value: private-cf-rt
+          Value:
+            private-cf-rt
 
+            #Association pub
 
+  PublicAssociation1a:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPublic1a
+      RouteTableId: !Ref PublicRt
+  PublicAssociation1c:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPublic1c
+      RouteTableId:
+        !Ref PublicRt
 
+        #Association private
 
-               #Association pub
+  PriAssociation1a:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPrivate1a
+      RouteTableId: !Ref PrivateRT
+    PriAssociation1c:
+      Type: AWS::EC2::SubnetRouteTableAssociation
+      Properties:
+        SubnetId: !Ref SubnetPrivate1c
+        RouteTableId:
+          !Ref PrivateRT
 
- PublicAssociation1a:
-  Type: AWS::EC2::SubnetRouteTableAssociation
-  Properties:
-    SubnetId: !Ref SubnetPublic1a
-    RouteTableId: !Ref PublicRt
- PublicAssociation1c:
-  Type: AWS::EC2::SubnetRouteTableAssociation
-  Properties:
-    SubnetId: !Ref  SubnetPublic1c
-    RouteTableId: !Ref PublicRt
+          #RDSsubnet
 
+  RdssDBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: rds_subnet
+      SubnetIds:
+        - !Ref SubnetPrivate1a
+        - !Ref SubnetPrivate1c
+      Tags:
+        - Key: Name
+          Value:
+            rds-cf-subnet
 
+            #outputs他のスタックから参照
 
+    Outputs:
+      SubnetPublic1a:
+        Value: !Ref SubnetPublic1a
+        Export:
+          Name: "subnet-public-1a"
 
-               #Association private
+      SubnetPublic1c:
+        Value: !Ref SubnetPublic1c
+        Export:
+          Name: "subnet-public-1c"
 
- PriAssociation1a:
-  Type: AWS::EC2::SubnetRouteTableAssociation
-  Properties:
-    SubnetId: !Ref SubnetPrivate1a
-    RouteTableId: !Ref PrivateRT
- PriAssociation1c:
-  Type: AWS::EC2::SubnetRouteTableAssociation
-  Properties:
-    SubnetId: !Ref SubnetPrivate1c
-    RouteTableId: !Ref PrivateRT
+      SubnetPrivate1a:
+        Value: !Ref SubnetPrivate1a
+        Export:
+          Name: "subnet-private-1a"
 
-         
+      SubnetPrivate1c:
+        Value: !Ref SubnetPrivate1c
+        Export:
+          Name: "subnet-private-1c"
 
-
-                #RDSsubnet
-
- RdssDBSubnetGroup:
-  Type: AWS::RDS::DBSubnetGroup
-  Properties:
-    DBSubnetGroupDescription: rds_subnet
-    SubnetIds:
-      - !Ref SubnetPrivate1a
-      - !Ref SubnetPrivate1c
-    Tags:
-      - Key: Name
-        Value: rds-cf-subnet
-
+      Vpc:
+        Value: !Ref Vpc
+        Export:
+          Name: "Vpc"
           
-                #outputs他のスタックから参照
-
-Outputs:
-  SubnetPublic1a:
-    Value: !Ref SubnetPublic1a
-    Export:
-      Name: "subnet-public-1a"
-
-  SubnetPublic1c:
-    Value: !Ref SubnetPublic1c
-    Export:
-      Name: "subnet-public-1c"
-
-  SubnetPrivate1a: 
-    Value: !Ref SubnetPrivate1a
-    Export:
-      Name: "subnet-private-1a"
-
-  SubnetPrivate1c:
-    Value: !Ref  SubnetPrivate1c
-    Export:
-      Name: "subnet-private-1c"
-
-  Vpc:
-    Value: !Ref Vpc
-    Export:
-      Name: "Vpc"
-      　　　　　　　
-      　　　　　　　
+          
