@@ -6,12 +6,12 @@ Parameters:
     Type: String
     Description: IP address allowed to access EC2
 Resources:
-  SgEC2:
+  EC2SecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: EC2SG
-      GroupDescription: SSH and HTTP
-      VpcId: !ImportValue VPCo
+      GroupName: ec2_group
+      GroupDescription: SSH_and_HTTP
+      VpcId: [!ImportValue "Vpc"]
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 22
@@ -24,32 +24,32 @@ Resources:
       Tags:
         - Key: Name
           Value:
-            SGec2
+            ec2-cf-securitygroup
 
             #RDSsecuritygroup
 
-  Rdssecuritygroup:
+  RDSSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: RDS-SG
-      GroupDescription: RDS
-      VpcId: !ImportValue VPCo
+      GroupName: rds_group
+      GroupDescription: RDSsg
+      VpcId: [!ImportValue "Vpc"]
       SecurityGroupIngress:
         - IpProtocol: tcp
           Fromport: 3306
           ToPort: 3306
-          SourceSecurityGroupId: !Ref SgEC2
+          SourceSecurityGroupId: !Ref EC2SecurityGroup
       Tags:
         - key: Name
-          Value: RDS-sg
-
+          Value: rds-cf-securitygroup
+          
           #ALBsecuritygroup
-  ALBSg:
+  ALBSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: AlbSgCf
-      GroupDescription: ALB-sg
-      VpcId: !ImportValue VPCo
+      GroupName: alb_group
+      GroupDescription: ALBsg
+      VpcId: [!ImportValue "Vpc"]
       SecurityGroupIngress:
         - IpProtocol: tcp
           Fromport: 80
@@ -57,18 +57,18 @@ Resources:
           CidrIP: !Ref MyIP
       Tags:
         - Key: Name
-          Value: ALB-SG-CF
+          Value: alb-cf-securitygroup
 
 Outputs:
-  SgEC2:
-    Value: !Ref SgEC2
+   EC2SecurityGroup:
+    Value: !Ref EC2SecurityGroup
     Export:
-      Name: EC2SG
-  SgRDS:
-    Value: !Ref Rdssecuritygroup
+      Name: "securitygroup-ec2"
+  RDSSecurityGroup:
+    Value: !Ref RDSSecurityGroup
     Export:
-      Name: RDSSG
-  AlbSG:
-    Value: !Ref ALBSg
+      Name: "securitygroup-rds"
+  ALBSecurityGroup:
+    Value: !Ref ALBSecurityGroup
     Export:
-      Name: ALBSgcf
+      Name: "securitygroup-alb"

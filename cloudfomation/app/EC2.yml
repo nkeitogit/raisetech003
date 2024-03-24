@@ -16,15 +16,15 @@ Resources:
       NetworkInterfaces:
         - AssociatePublicIpAddress: true
           DeviceIndex: "0"
-          SubnetId: !ImportValue pub1ao
+          SubnetId: [!ImportValue "subnet-public-1a"]
           GroupSet:
-            - !ImportValue EC2SG
+            - [!ImportValue "securitygroup-ec2"]
       Monitoring: false
       UserData: !Base64 |
         #!/bin/bash
         sudo yum update -y
-      IamInstanceProfile: !ImportValue Ims3
+      IamInstanceProfile: [!ImportValue  "s3-role"]
 
       Tags:
         - Key: Name
-          Value: EC2ins
+          Value: ec2-cf-instance

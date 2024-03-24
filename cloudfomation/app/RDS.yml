@@ -17,7 +17,7 @@ Parameters:
     AllowedPattern: "[a-zA-Z0-9]*"
 
 Resources:
-  Rds:
+  RDS:
     Type: AWS::RDS::DBInstance
     Properties:
       AllocatedStorage: 20
@@ -35,10 +35,10 @@ Resources:
       PubliclyAccessible: false
       StorageType: gp2
       VPCSecurityGroups:
-        - !ImportValue RDSSG
+        - [!ImportValue "securitygroup-rds"]
       Tags:
         - Key: Name
-          Value: Rdsin
+          Value: rds-cf-instance
 
 
   DBSubnet:
@@ -46,8 +46,8 @@ Resources:
    Properties:
     DBSubnetGroupDescription: db
     SubnetIds:
-      - !ImportValue pri1ao
-      - !ImportValue pri1co
+      - [!ImportValue "subnet-private-1a"]
+      - [!ImportValue "subnet-private-1c"]
     Tags:
       - Key: Name
-        Value: Dbsub
+        Value: db-cf-subnet
