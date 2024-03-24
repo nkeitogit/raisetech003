@@ -1,26 +1,23 @@
 AWSTemplateFormatVersion: 2010-09-09
-  Description: cloudformetion-net
-
+Description: cloudformetion-network
+#vpc
 
 Resources:
-    
-    Vpc:
-     Type: AWS::EC2::VPC
-      Properties:
+  Vpc:
+    Type: AWS::EC2::VPC
+    Properties:
       CidrBlock: 10.0.7.0/16
       EnableDnsSupport: true
       Tags:
         - Key: Name
           Value:
-            vpc-cf
+              vpc-cf
 
             #InternetGateway
-
   IGw:
     Type: AWS::EC2::InternetGateway
     Properties:
-      Tags:AWSTemplateFormatVersion: 2010-09-09
-
+      Tags:
         - Key: Name
           Value: igw-cf
   AttachGateway:
@@ -82,105 +79,102 @@ Resources:
       Tags:
         - Key: Name
           Value:
-            Private-cd-1c
+            private-cf-1c
 
             #Routetable pub
 
-  PublicRt:
+  PublicRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
-      VpcId: !Ref vpc
+      VpcId: !Ref Vpc
       Tags:
         - Key: Name
-          Value: public-cf-rt
-  PubilicInNet:
+          Value: pub-cf-rt
+  PublicInternet:
     Type: AWS::EC2::Route
     Properties:
-      RouteTableId: !Ref PublicRt
+      RouteTableId: !Ref PublicRouteTable
       DestinationCidrBlock: 0.0.0.0/0
       GatewayId:
         !Ref IGw
 
         #Routetable pri
 
-  PrivateRT:
+  PrivateRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId: !Ref Vpc
       Tags:
         - Key: Name
           Value:
-            private-cf-rt
+            pri-cf-rt
 
             #Association pub
 
-  PublicAssociation1a:
+  PubAssociation1a:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref SubnetPublic1a
-      RouteTableId: !Ref PublicRt
-  PublicAssociation1c:
+      RouteTableId: !Ref PublicRouteTable
+  PubAssociation1c:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref SubnetPublic1c
       RouteTableId:
-        !Ref PublicRt
+        !Ref PublicRouteTable
 
         #Association private
 
-  PriAssociation1a:
-     Type: AWS::EC2::SubnetRouteTableAssociation
-      Properties:
-       SubnetId: !Ref SubnetPrivate1a
-       RouteTableId: !Ref PrivateRT
-     PriAssociation1c:
-      Type: AWS::EC2::SubnetRouteTableAssociation
-      Properties:
-        SubnetId: !Ref SubnetPrivate1c
-        RouteTableId:
-          !Ref PrivateRT
+  PrivateAssociation1a:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPrivate1a
+      RouteTableId: !Ref PrivateRouteTable
+  PrivateAssociation1c:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPrivate1c
+      RouteTableId:
+        !Ref PrivateRouteTable
 
-          #RDSsubnet
+        #RDSsubnet
 
-  RdssDBSubnetGroup:
+  RdsDBSubnetGroup:
     Type: AWS::RDS::DBSubnetGroup
     Properties:
-      DBSubnetGroupDescription: rds_subnet
+      DBSubnetGroupDescription: rds_cf
       SubnetIds:
         - !Ref SubnetPrivate1a
         - !Ref SubnetPrivate1c
       Tags:
         - Key: Name
           Value:
-            rds-cf-subnet
+            rds-cf-rds
 
+            #outputs他のスタックから参照
 
+Outputs:
+  Public1a:
+    Value: !Ref SubnetPublic1a
+    Export:
+      Name: "subnet-public-1a"
 
- Outputs:
-      SubnetPublic1a:
-        Value: !Ref SubnetPublic1a
-        Export:
-          Name: "subnet-public-1a"
+  Public1c:
+    Value: !Ref SubnetPublic1c
+    Export:
+      Name: "subnet-public-1c"
 
-      SubnetPublic1c:
-        Value: !Ref SubnetPublic1c
-        Export:
-          Name: "subnet-public-1c"
+  Private1a:
+    Value: !Ref SubnetPrivate1a
+    Export:
+      Name: "subnet-private-1a"
 
-      SubnetPrivate1a:
-        Value: !Ref SubnetPrivate1a
-        Export:
-          Name: "subnet-private-1a"
+  Private1c:
+    Value: !Ref SubnetPrivate1c
+    Export:
+      Name: "subnet-private-1c"
 
-      SubnetPrivate1c:
-        Value: !Ref SubnetPrivate1c
-        Export:
-          Name: "subnet-private-1c"
-
-      Vpc:
-        Value: !Ref Vpc
-         Export:
-           Name: "Vpc"
-       
-       
-       
+  Vpc:
+    Value: !Ref Vpc
+    Export:
+      Name: "Vpc"
