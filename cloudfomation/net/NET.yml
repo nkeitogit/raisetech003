@@ -129,11 +129,11 @@ Resources:
         #Association private
 
   PriAssociation1a:
-    Type: AWS::EC2::SubnetRouteTableAssociation
-    Properties:
-      SubnetId: !Ref SubnetPrivate1a
-      RouteTableId: !Ref PrivateRT
-    PriAssociation1c:
+     Type: AWS::EC2::SubnetRouteTableAssociation
+      Properties:
+       SubnetId: !Ref SubnetPrivate1a
+       RouteTableId: !Ref PrivateRT
+     PriAssociation1c:
       Type: AWS::EC2::SubnetRouteTableAssociation
       Properties:
         SubnetId: !Ref SubnetPrivate1c
@@ -154,9 +154,9 @@ Resources:
           Value:
             rds-cf-subnet
 
-            #outputs他のスタックから参照
 
-    Outputs:
+
+ Outputs:
       SubnetPublic1a:
         Value: !Ref SubnetPublic1a
         Export:
@@ -179,7 +179,8 @@ Resources:
 
       Vpc:
         Value: !Ref Vpc
-        Export:
-          Name: "Vpc"
-          
-          
+         Export:
+           Name: "Vpc"
+       
+       
+       
