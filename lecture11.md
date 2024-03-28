@@ -24,8 +24,6 @@ serverspec-init
 
 OSはどれか？ローカルか？SSHか？
 
- １）UNIXを選択
-
  ２）localを選択
 
 specsa/spec/localhost/sample_spec.rbのファイルに書き込みを行う
@@ -78,7 +76,7 @@ end
 
 ## test実行
 
-commed
+commend
 
 ```
 rake spec
