@@ -6,9 +6,9 @@
 
 ## 準備
 
-- circlciの登録
+- Circleciの登録
 - githubとcircleciの連携
-- circleci CLIの導入（Windows）
+- Circleci CLIの導入（Windows）
 - Circleci CLI動作確認
 - サンプルコンフィグ書き換え
 
@@ -29,7 +29,7 @@
 
 - 疑似パラメータ参照・組み込み関数の使用
 
-```net
+```yaml
  subnetPublic1a:
     Type: AWS::EC2::Subnet
     Properties:
