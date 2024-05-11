@@ -1,26 +1,26 @@
 # 第四回課題提出
 
 ## vpc接続
-![vpc](img4/vpc2.png)
-![vpc](img/vpcmap.png)
+![vpc](image\lec4image\vpc2.pngimg4/vpc2.png)
+![vpc](image\lec4image\vpcmap.pngimg/vpcmap.png)
 
 
 
 ## セキュリティーグループ
 
-![security](img4/ec2insta.png)
+![security](image\lec4image\ec2insta.pngimg4/ec2insta.png)
 
 
 
 ## EC2インスタンス
 
- ![instance](img4/instance2.png)
+ ![instance](image\lec4image\instance2.png)
 
 ## RDS
 
 
-　![db](img4/dbin.png)
-　![db](img4/dbsg.png)
+　![db](image/lec4image/dbin.png)
+　![db](image/lec4image/dbsg.png)
 
 
 
