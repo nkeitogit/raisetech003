@@ -4,7 +4,7 @@ Description: CloudFormation-EC2
 Parameters:
   KEYname:
     Type: String
-    Default: CFec2
+    Default: kyua5/12
 
 Resources:
   EC2Instance:
@@ -16,14 +16,14 @@ Resources:
       NetworkInterfaces:
         - AssociatePublicIpAddress: true
           DeviceIndex: "0"
-          SubnetId: [!ImportValue "subnet-public-1a"]
+          SubnetId: !ImportValue subnet-public-1a
           GroupSet:
-            - [!ImportValue "securitygroup-ec2"]
+            -  !ImportValue securitygroup-ec2
       Monitoring: false
       UserData: !Base64 |
         #!/bin/bash
         sudo yum update -y
-      IamInstanceProfile: [!ImportValue  "s3-role"]
+      IamInstanceProfile: !ImportValue  s3-role
 
       Tags:
         - Key: Name

@@ -9,10 +9,10 @@ Resources:
       Name: AlbCF
       Scheme: "internet-facing"
       SecurityGroups:
-        - !ImportValue ALBSgcf
+        - !ImportValue securitygroup-alb
       Subnets:
-        - !ImportValue pub1ao
-        - !ImportValue pub1co
+        - !ImportValue subnet-public-1a
+        - !ImportValue subnet-public-1c
       Tags:
         - Key: Name
           Value: ALBcf
@@ -22,20 +22,20 @@ Resources:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
       HealthCheckEnabled: true
-      HealthCheckIntervalSeconds: 30
+      HealthCheckIntervalSeconds: "30"
       HealthCheckPath: /
       HealthCheckPort: traffic-port
       HealthCheckProtocol: HTTP
-      HealthCheckTimeoutSeconds: 10
-      HealthyThresholdCount: 5
-      UnhealthyThresholdCount: 2
+      HealthCheckTimeoutSeconds: "10"
+      HealthyThresholdCount: "5"
+      UnhealthyThresholdCount: "2"
       Name: ALBtarget
-      Port: 80
+      Port: "80"
       Protocol: HTTP
       TargetType: instance
-      VpcId: !ImportValue VPCo
+      VpcId: !ImportValue Vpc
       Matcher:
-        HttpCode: 200
+        HttpCode: "200"
       Tags:
         - Key: Name
           Value: AlbcfTaget
@@ -43,7 +43,7 @@ Resources:
   AlblistHTTP:
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
-      Port: 80
+      Port: "80"
       Protocol: HTTP
       DefaultActions:
         - TargetGroupArn: !Ref ALBtarget

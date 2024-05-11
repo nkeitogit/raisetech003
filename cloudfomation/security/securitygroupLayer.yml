@@ -5,21 +5,22 @@ Parameters:
   MyIP:
     Type: String
     Description: IP address allowed to access EC2
+
 Resources:
   EC2SecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupName: ec2_group
       GroupDescription: SSH_and_HTTP
-      VpcId: [!ImportValue "Vpc"]
+      VpcId: !ImportValue Vpc
       SecurityGroupIngress:
         - IpProtocol: tcp
-          FromPort: 22
-          ToPort: 22
+          FromPort: '22'
+          ToPort: '22'
           CidrIp: !Ref MyIP
         - IpProtocol: tcp
-          FromPort: 80
-          ToPort: 80
+          FromPort: '80'
+          ToPort: '80'
           CidrIp: !Ref MyIP
       Tags:
         - Key: Name
@@ -33,11 +34,11 @@ Resources:
     Properties:
       GroupName: rds_group
       GroupDescription: RDSsg
-      VpcId: [!ImportValue "Vpc"]
+      VpcId: !ImportValue Vpc
       SecurityGroupIngress:
         - IpProtocol: tcp
-          Fromport: 3306
-          ToPort: 3306
+          Fromport: '3306'
+          ToPort: '3306'
           SourceSecurityGroupId: !Ref EC2SecurityGroup
       Tags:
         - key: Name
@@ -49,11 +50,11 @@ Resources:
     Properties:
       GroupName: alb_group
       GroupDescription: ALBsg
-      VpcId: [!ImportValue "Vpc"]
+      VpcId: !ImportValue Vpc
       SecurityGroupIngress:
         - IpProtocol: tcp
-          Fromport: 80
-          ToPort: 80
+          Fromport: '80'
+          ToPort: '80'
           CidrIP: !Ref MyIP
       Tags:
         - Key: Name
@@ -64,11 +65,11 @@ Outputs:
     Value: !Ref EC2SecurityGroup
     Export:
       Name: "securitygroup-ec2"
-  RDSSecurityGroup:
+   RDSSecurityGroup:
     Value: !Ref RDSSecurityGroup
     Export:
       Name: "securitygroup-rds"
-  ALBSecurityGroup:
+   ALBSecurityGroup:
     Value: !Ref ALBSecurityGroup
     Export:
       Name: "securitygroup-alb"
