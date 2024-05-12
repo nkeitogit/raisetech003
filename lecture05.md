@@ -162,7 +162,7 @@ bin/setup
 bin/dev
 ```
 - EC2のセキュリティーグループに3000番ポートを追加
-![dep](img/deploy1.png)
+![dep](image/lec05image/deploy1.png)
 
 * * *
 
@@ -190,7 +190,7 @@ sudo kill -QUIT `cat /home/ec2-user/raisetech-live8-sample-app/tmp/pids/unicorn.
 
 * unicorn.rbの編集
  
-![unicorn.rb](img/unicorn.rb.png)
+![unicorn.rb](image/lec05image/unicorn.rb.png)
 
 
 ## nginxのインストール、動作確認
@@ -215,13 +215,13 @@ sudo nginx -s stop
 
 * nginx動作確認
 
-![nginx](img/nginx.png)
+![nginx](image/lec05image/nginx.png)
 
 
 * nginx.configの編集
 
 
-![nginx.config](img5/nginx.config.png)
+![nginx.config](image/lec05image/nginx.config.png)
 
 * * *
     
@@ -229,7 +229,7 @@ sudo nginx -s stop
 
 `rails assets:precompile`
 
-![deploy](img5/deploy.png)
+![deploy](image/lec05image/deploy.png)
 画像の表示と保存を確認
 
 
@@ -237,16 +237,16 @@ sudo nginx -s stop
 
 
 ## ELB（ALB）の追加
-![alb](img5/ALBsyousai.png)
+![alb](image/lec05image/ALBsyousai.png)
 * * *
 
-![alb](img5/ALBta-get.png)
+![alb](image/lec05image/ALBta-get.png)
 * * *
 
-![alb](img5/ALB.png)
+![alb](image/lec05image/ALB.png)
 * * *
 
-![alb](img5/ALBdepu.png)
+![alb](image/lec05image/ALBdepu.png)
 
 * development.rbにconfig.hosts << "ALBのDNS名"追加
 * nginx.conf内のservernameにも追加
@@ -266,15 +266,15 @@ amazon:
 * development.rbを修正
 config.active_storage.serviceをamazonに変更
 
-![s3](img/s3fullakuse.png)
+![s3](image/lec05image/s3fullakuse.png)
 * * *
-![s3](img/s3depu.png)
+![s3](image/lec05image/s3depu.png)
 * * *
-![s3](img/s3gazoou.png)
+![s3](image/lec05image/s3gazoou.png)
 * * *
 
 
 ## 構成図
-![AWS](img/AWS.drawio.png)
+![AWS](image/lec05image/AWS.drawio.png)
 
 
