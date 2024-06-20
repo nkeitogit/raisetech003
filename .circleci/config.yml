@@ -22,12 +22,16 @@ jobs:
     steps:
       - checkout
       - aws-cli/setup:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-region: AWS_DEFAULT_REGION
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-      - run: aws cloudformation deploy --template-file cloudformation/net --stack-name cfn-13-vpc
-      - run: aws cloudformation deploy --template-file cloudformation/app --stack-name cfn-13-app
-      - run: aws cloudformation deploy --template-file cloudformation/security --stack-name cfn-13-security
+          aws_access_key-id: AWS_ACCESS_KEY_ID
+          aws_region: AWS_DEFAULT_REGION
+          aws_secret_access_key: AWS_SECRET_ACCESS_KEY
+
+      - run:
+          name: deploy cfn
+          command: | 
+            aws cloudformation deploy --template-file cloudformation/net --stack-name cfn-13-vpc
+            aws cloudformation deploy --template-file cloudformation/app --stack-name cfn-13-app
+            aws cloudformation deploy --template-file cloudformation/security --stack-name cfn-13-security
       #- run: aws cloudformation deploy --template-file cloudformation/04_elb.yml --stack-name cfn-lecture-elb
       #- run: aws cloudformation deploy --template-file cloudformation/05_s3.yml --stack-name cfn-lecture-s3
 
