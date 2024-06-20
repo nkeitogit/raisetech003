@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   python: circleci/python@2.0.3
   aws-cli: circleci/aws-cli@4.1.3
- # ansible: orbss/ansible-playbook@0.0.5
+  #ansible: orbss/ansible-playbook@0.0.5
   #ruby: circleci/ruby@2.0.0
 
 jobs:
