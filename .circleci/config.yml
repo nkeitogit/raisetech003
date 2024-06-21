@@ -29,9 +29,9 @@ jobs:
       - run:
           name: deploy cfn
           command: | 
-            aws cloudformation deploy --template-file cloudformation/net --stack-name cfn-13-vpc
-            aws cloudformation deploy --template-file cloudformation/app --stack-name cfn-13-app
-            aws cloudformation deploy --template-file cloudformation/security --stack-name cfn-13-security
+            aws cloudformation deploy --template-file cloudfomation/net --stack-name cfn-13-vpc
+            aws cloudformation deploy --template-file cloudfomation/app --stack-name cfn-13-app
+            aws cloudformation deploy --template-file cloudfomation/security --stack-name cfn-13-security
       #- run: aws cloudformation deploy --template-file cloudformation/04_elb.yml --stack-name cfn-lecture-elb
       #- run: aws cloudformation deploy --template-file cloudformation/05_s3.yml --stack-name cfn-lecture-s3
 
